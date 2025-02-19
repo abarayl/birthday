@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Magical Birthday Journey</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap');
+
+    /* Body with your girlfriend's photo as background */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: url('https://drive.google.com/uc?export=view&id=1YRoKbdFryq0KLG-m6TXmCbPsqyd92uR5') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Optional: Add a subtle dark overlay for readability */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 0;
+    }
+
+    /* Starry Background remains (if desired) */
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 0.2; }
+    }
+
+    /* Glassmorphism Container */
+    .container {
+      position: relative;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      text-align: center;
+      transform: scale(0.9);
+      opacity: 0;
+      animation: appear 1s ease-out forwards;
+      z-index: 2;
+    }
+    @keyframes appear {
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Typography */
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      color: #ff4b6e;
+      font-size: 3.5rem;
+      margin: 1rem 0;
+    }
+    p {
+      font-size: 1.2rem;
+      color: #333;
+      line-height: 1.6;
+      margin: 1.5rem 0;
+    }
+
+    /* Button Styles */
+    .choices {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    button {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: #ff4b6e;
+      color: white;
+    }
+    .yes-btn { background: #ff4b6e; }
+    .no-btn { background: #6e6bff; }
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .hidden { display: none; }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      animation: float 3s ease-in-out infinite;
+      font-size: 1.5rem;
+      z-index: 3;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Confetti Canvas */
+    .celebration {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* Fireworks Canvas */
+    .fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .story-text {
+      font-style: italic;
+      color: #555;
+      margin: 1rem 0;
+    }
+
+    .surprise {
+      background: #ff4b6e;
+      color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Final Message */
+    .final-message { z-index: 2; }
+  </style>
+</head>
+<body>
+  <!-- Starry Background -->
+  <div class="stars"></div>
+
+  <div class="container">
+    <!-- Step 1: Birthday & Journey Introduction -->
+    <div class="question" data-step="1">
+      <h1>Happy 22nd Birthday, fira! 🌟</h1>
+      <p>My dearest, today we celebrate not only your birthday but our beautiful journey together.</p>
+      <p>Are you ready to relive the moments that have colored our world?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(1, true)">Yes, let's begin!</button>
+        <button class="no-btn" onclick="playfulDeny(1)">Tell me more...</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Motorcycle Rides -->
+    <div class="question hidden" data-step="2">
+      <p>Three years of us—do you remember our aimless motorcycle rides, just you, me, and the open road?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(2, true)">I remember every mile</button>
+        <button class="no-btn" onclick="playfulDeny(2)">Remind me again</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Quiet Pauses -->
+    <div class="question hidden" data-step="3">
+      <p>Those quiet moments when our souls spoke louder than words—do you still feel that magic?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(3, true)">Yes, the magic lingers</button>
+        <button class="no-btn" onclick="playfulDeny(3)">I need a little reminder</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Weathering Storms -->
+    <div class="question hidden" data-step="4">
+      <p>We’ve faced storms together—challenges that only made us stronger. Do you feel our love growing through every trial?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(4, true)">Stronger than ever</button>
+        <button class="no-btn" onclick="playfulDeny(4)">Tell me more about our strength</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Lighthouse of Words -->
+    <div class="question hidden" data-step="5">
+      <p>When life weighed me down, your words—"Kamu pasti bisa, aku percaya sama kamu"—became my lighthouse. Do you remember that promise?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(5, true)">I remember it well</button>
+        <button class="no-btn" onclick="playfulDeny(5)">I need to hear it again</button>
+      </div>
+    </div>
+
+    <!-- Step 6: Late-Night Dreams -->
+    <div class="question hidden" data-step="6">
+      <p>Our late-night calls, where even imperfect moments felt sacred—do you cherish those dreams?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(6, true)">I cherish every second</button>
+        <button class="no-btn" onclick="playfulDeny(6)">I miss them dearly</button>
+      </div>
+    </div>
+
+    <!-- Step 7: Choosing "We" -->
+    <div class="question hidden" data-step="7">
+      <p>Every time you chose "we" over "me," you rebuilt our love. Will you keep choosing us every day?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(7, true)">Always, without a doubt</button>
+        <button class="no-btn" onclick="playfulDeny(7)">I need a moment to decide</button>
+      </div>
+    </div>
+
+    <!-- Step 8: The Promise of Shoes -->
+    <div class="question hidden" data-step="8">
+      <p>These shoes aren’t just sneakers—they’re a whisper from my heart: “Let’s keep walking this path together.” Do you feel that promise with every step?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(8, true)">I feel it in every step</button>
+        <button class="no-btn" onclick="playfulDeny(8)">Remind me of that promise</button>
+      </div>
+    </div>
+
+    <!-- Step 9: Love in Every Moment -->
+    <div class="question hidden" data-step="9">
+      <p>Every "I'm sorry," every shared smile—do you feel our love deepening with every moment?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(9, true)">Our love grows stronger</button>
+        <button class="no-btn" onclick="playfulDeny(9)">I want to feel it even more</button>
+      </div>
+    </div>
+
+    <!-- Step 10: Forever is a Choice -->
+    <div class="question hidden" data-step="10">
+      <p>Here’s to 22 years of you—and to a lifetime of us. Do you believe forever is a choice we make every day?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(10, true)">Forever and always</button>
+        <button class="no-btn" onclick="playfulDeny(10)">I need a moment</button>
+      </div>
+    </div>
+
+    <!-- Step 11: Unexpected Adventures -->
+    <div class="question hidden" data-step="11">
+      <p>Do you recall the thrill of every unexpected adventure we took?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(11, true)">Every adventure thrills me!</button>
+        <button class="no-btn" onclick="playfulDeny(11)">I need a reminder</button>
+      </div>
+    </div>
+
+    <!-- Step 12: Unwavering Love -->
+    <div class="question hidden" data-step="12">
+      <p>When the world seemed chaotic, did you feel my unwavering love by your side?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(12, true)">I felt your love</button>
+        <button class="no-btn" onclick="playfulDeny(12)">I need to feel it again</button>
+      </div>
+    </div>
+
+    <!-- Step 13: Our Sunsets -->
+    <div class="question hidden" data-step="13">
+      <p>Do you remember the quiet moments watching sunsets, feeling like the world was ours alone?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(13, true)">Those sunsets are unforgettable</button>
+        <button class="no-btn" onclick="playfulDeny(13)">Tell me more about those moments</button>
+      </div>
+    </div>
+
+    <!-- Step 14: Your Sparkling Laughter -->
+    <div class="question hidden" data-step="14">
+      <p>Can you recall how your laughter filled the air and made every moment sparkle?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(14, true)">My laughter lights up our days</button>
+        <button class="no-btn" onclick="playfulDeny(14)">I need to hear it</button>
+      </div>
+    </div>
+
+    <!-- Step 15: The Magic in Your Smile -->
+    <div class="question hidden" data-step="15">
+      <p>Every time I see you smile, it's like a galaxy lighting up—do you remember that magic?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(15, true)">Your smile is my galaxy</button>
+        <button class="no-btn" onclick="playfulDeny(15)">Remind me of that sparkle</button>
+      </div>
+    </div>
+
+    <!-- Step 16: Our Growing Bond -->
+    <div class="question hidden" data-step="16">
+      <p>When times were tough, did you feel our bond growing stronger with every challenge we overcame?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(16, true)">Our bond only grows</button>
+        <button class="no-btn" onclick="playfulDeny(16)">I need a little boost</button>
+      </div>
+    </div>
+
+    <!-- Step 17: Dreaming Together -->
+    <div class="question hidden" data-step="17">
+      <p>Do you remember the times we planned our dreams, like architects of our future, whispering promises into the night?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(17, true)">Our dreams are our blueprint</button>
+        <button class="no-btn" onclick="playfulDeny(17)">I want to dream again</button>
+      </div>
+    </div>
+
+    <!-- Step 18: Our Masterpiece -->
+    <div class="question hidden" data-step="18">
+      <p>Even on imperfect days, did you know that every moment with you is a cherished masterpiece?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(18, true)">Every moment is art</button>
+        <button class="no-btn" onclick="playfulDeny(18)">I want to see the beauty</button>
+      </div>
+    </div>
+
+    <!-- Step 19: Our Love, Our Anchor -->
+    <div class="question hidden" data-step="19">
+      <p>In the midst of life's chaos, can you feel how our love anchors us, making everything possible?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(19, true)">Our love anchors me</button>
+        <button class="no-btn" onclick="playfulDeny(19)">I need to feel that anchor</button>
+      </div>
+    </div>
+
+    <!-- Step 20: Our Endless Story -->
+    <div class="question hidden" data-step="20">
+      <p>As we celebrate you today, do you believe our story is just beginning—with endless chapters of love to write?</p>
+      <div class="choices">
+        <button class="yes-btn" onclick="nextQuestion(20, true)">Our story is just starting</button>
+        <button class="no-btn" onclick="playfulDeny(20)">I need to dream more</button>
+      </div>
+    </div>
+
+    <!-- Final Message -->
+    <div class="final-message hidden">
+      <h1>To My Everything 🌹</h1>
+      <p>You are the light that brightens my darkest days,</p>
+      <p>The melody that turns my chaos into harmony,</p>
+      <p>And the dream I never want to wake up from.</p>
+      <p>Happy Birthday, cintaku. Here's to our forever and the many chapters yet to be written.</p>
+      <div class="surprise">🎉 Let's Celebrate! 🎉</div>
+    </div>
+  </div>
+
+  <script>
+    function nextQuestion(currentStep, answer) {
+      document.querySelector(`[data-step="${currentStep}"]`).classList.add('hidden');
+      const nextStep = document.querySelector(`[data-step="${currentStep + 1}"]`);
+      if (nextStep) {
+        nextStep.classList.remove('hidden');
+        createHearts();
+      } else {
+        showFinalMessage();
+      }
+    }
+
+    function playfulDeny(step) {
+      let message = "";
+      switch (step) {
+        case 1:
+          message = "Our journey is full of magic—let’s embrace it together!";
+          break;
+        case 2:
+          message = "Those rides are etched in my heart. I'll remind you again.";
+          break;
+        case 3:
+          message = "The silence between us speaks volumes—remember it with me.";
+          break;
+        case 4:
+          message = "Every storm made us stronger. Trust in our love!";
+          break;
+        case 5:
+          message = "My lighthouse awaits—'Kamu pasti bisa, aku percaya sama kamu.'";
+          break;
+        case 6:
+          message = "Our late-night dreams are our secret magic.";
+          break;
+        case 7:
+          message = "Choosing us is the easiest choice of my life.";
+          break;
+        case 8:
+          message = "Every step together is a promise renewed.";
+          break;
+        case 9:
+          message = "Our love deepens with every shared smile.";
+          break;
+        case 10:
+          message = "Forever is our daily promise—let’s hold onto it.";
+          break;
+        case 11:
+          message = "Every adventure thrills me—let’s remember them!";
+          break;
+        case 12:
+          message = "My love was always there—even in chaos.";
+          break;
+        case 13:
+          message = "Those sunsets felt like the world was ours.";
+          break;
+        case 14:
+          message = "Your laughter always made the day brighter.";
+          break;
+        case 15:
+          message = "Your smile lights up galaxies—remember that magic!";
+          break;
+        case 16:
+          message = "Our bond grows with every challenge—feel it!";
+          break;
+        case 17:
+          message = "Our dreams are our blueprint—let’s keep planning!";
+          break;
+        case 18:
+          message = "Every moment with you is art—cherish it!";
+          break;
+        case 19:
+          message = "Our love is the anchor that holds us steady.";
+          break;
+        case 20:
+          message = "Our story is just beginning—endless love awaits.";
+          break;
+        default:
+          message = "Our love is undeniable, my dearest.";
+      }
+      alert(message);
+      nextQuestion(step, false);
+    }
+
+    function showFinalMessage() {
+      document.querySelectorAll('.question').forEach(q => q.classList.add('hidden'));
+      document.querySelector('.final-message').classList.remove('hidden');
+      createHearts();
+      startConfetti();
+      // Delay fireworks by 3 seconds, then show them for 5 seconds only.
+      setTimeout(() => {
+        startFireworks();
+      }, 3000);
+      startHeartsRain();
+    }
+
+    // Create a burst of hearts once
+    function createHearts() {
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = Math.random() * 100 + 'vh';
+        heart.style.animationDelay = Math.random() * 2 + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }
+    }
+
+    // Denser confetti effect
+    function startConfetti() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.classList.add('celebration');
+      document.body.appendChild(canvas);
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const colors = ['#ff4b6e', '#6e6bff', '#ffd700', '#7cfc00', '#ff9a9e'];
+      const confetti = [];
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = -10;
+          this.velocity = 2 + Math.random() * 3;
+          this.angle = Math.random() * Math.PI * 2;
+          this.spin = Math.random() * 0.1;
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.size = 5 + Math.random() * 5;
+        }
+        update() {
+          this.y += this.velocity;
+          this.angle += this.spin;
+          this.x += Math.sin(this.angle) * 2;
+        }
+        draw() {
+          ctx.save();
+          ctx.translate(this.x, this.y);
+          ctx.rotate(this.angle);
+          ctx.fillStyle = this.color;
+          ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+          ctx.restore();
+        }
+      }
+
+      function animateConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (confetti.length < 200 && Math.random() < 0.5) {
+          confetti.push(new Particle());
+        }
+        confetti.forEach((particle, index) => {
+          particle.update();
+          particle.draw();
+          if (particle.y > canvas.height + 20) {
+            confetti.splice(index, 1);
+          }
+        });
+        requestAnimationFrame(animateConfetti);
+      }
+      animateConfetti();
+    }
+
+    // Fireworks effect (stops after 5 seconds)
+    function startFireworks() {
+      const canvas = document.createElement('canvas');
+      canvas.classList.add('fireworks');
+      document.body.appendChild(canvas);
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const ctx = canvas.getContext('2d');
+      let fireworks = [];
+      let particles = [];
+
+      class Firework {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = canvas.height;
+          this.targetY = Math.random() * canvas.height / 2;
+          this.speed = 4 + Math.random() * 2;
+          this.done = false;
+        }
+        update() {
+          if (this.y <= this.targetY) {
+            this.done = true;
+            this.explode();
+          } else {
+            this.y -= this.speed;
+          }
+        }
+        explode() {
+          let count = 30 + Math.floor(Math.random() * 20);
+          for (let i = 0; i < count; i++) {
+            particles.push(new Particle(this.x, this.y));
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+          ctx.fillStyle = '#fff';
+          ctx.fill();
+        }
+      }
+
+      class Particle {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.speed = 2 + Math.random() * 3;
+          this.angle = Math.random() * Math.PI * 2;
+          this.friction = 0.95;
+          this.gravity = 0.7;
+          this.alpha = 1;
+          this.decay = 0.03 + Math.random() * 0.02;
+          this.color = 'hsl(' + Math.floor(Math.random() * 360) + ', 100%, 50%)';
+        }
+        update() {
+          this.speed *= this.friction;
+          this.x += Math.cos(this.angle) * this.speed;
+          this.y += Math.sin(this.angle) * this.speed + this.gravity;
+          this.alpha -= this.decay;
+        }
+        draw() {
+          ctx.save();
+          ctx.globalAlpha = this.alpha;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      function animateFireworks() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        if (Math.random() < 0.05) {
+          fireworks.push(new Firework());
+        }
+        fireworks.forEach((firework, index) => {
+          firework.update();
+          firework.draw();
+          if (firework.done) {
+            fireworks.splice(index, 1);
+          }
+        });
+        particles.forEach((particle, index) => {
+          particle.update();
+          particle.draw();
+          if (particle.alpha <= 0) {
+            particles.splice(index, 1);
+          }
+        });
+        requestAnimationFrame(animateFireworks);
+      }
+      animateFireworks();
+      // Remove the fireworks canvas after 5 seconds
+      setTimeout(() => {
+        canvas.remove();
+      }, 5000);
+    }
+
+    // Continuous hearts rain to create a crowded celebration atmosphere
+    function startHeartsRain() {
+      const interval = setInterval(() => {
+        for (let i = 0; i < 5; i++) {
+          const heart = document.createElement('div');
+          heart.innerHTML = '❤️';
+          heart.classList.add('heart');
+          heart.style.left = Math.random() * 100 + 'vw';
+          heart.style.top = '100vh';
+          heart.style.animationDelay = Math.random() * 2 + 's';
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 5000);
+        }
+      }, 500);
+      // Stop hearts rain after 10 seconds
+      setTimeout(() => clearInterval(interval), 10000);
+    }
+
+    // Create twinkling stars
+    function createStars() {
+      const starsContainer = document.querySelector('.stars');
+      for (let i = 0; i < 50; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.width = star.style.height = Math.random() * 3 + 'px';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.animationDuration = 2 + Math.random() * 3 + 's';
+        starsContainer.appendChild(star);
+      }
+    }
+    createStars();
+  </script>
+</body>
+</html>
